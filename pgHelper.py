@@ -15,8 +15,8 @@ class pgHelper:
         self.con.close()
 
     def listField(self, table, field, schema='public'):
-        sql = """SELECT DISTINCT {1} FROM {2}.{0}
-                 ORDER BY {1}""".format(table, field, schema)
+        sql = """SELECT DISTINCT "{1}" FROM {2}.{0}
+                 ORDER BY "{1}" """.format(table, field, schema)
         self.cur.execute(sql)
         return [n[0] for n in self.cur.fetchall()]
 
@@ -39,15 +39,15 @@ class pgHelper:
 
     def spatialWhereClause(self, targetGeom, qryGeom, qryTable, where="1=1", bboxOnly=False, schema='public'):
         if not bboxOnly:
-           sql = """ST_Intersects( {0} , (
+           sql = """ST_Intersects( "{0}" , (
                     SELECT  ST_Collect(
-                       ST_SimplifyPreserveTopology( {4}.{2}.{1} , 2) )
+                       ST_SimplifyPreserveTopology( {4}.{2}."{1}" , 2) )
                     FROM   {4}.{2}
                     WHERE  {3} )
                  ) """.format(targetGeom, qryGeom, qryTable, where, schema )
         else:
-            sql = """{0} && (
-                    SELECT ST_Collect( {4}.{2}.{1} )
+            sql = """ "{0}" && (
+                    SELECT ST_Collect( {4}.{2}."{1}" )
                     FROM   {4}.{2}
                     WHERE  {3} )
                   """.format(targetGeom, qryGeom, qryTable, where, schema )

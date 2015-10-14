@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_settings.ui'
 #
-# Created: Wed Oct 14 15:31:10 2015
-#      by: PyQt4 UI code generator 4.10.2
+# Created: Wed Oct 14 17:48:20 2015
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -148,3 +148,4 @@ class Ui_settingsDlg(object):
         self.geomColLbl.setText(_translate("settingsDlg", "Kolom met geometrien:", None))
         self.label_3.setText(_translate("settingsDlg", "<font color=\"red\">Herstarten om toe te passen</font>", None))
 
+import resources_rc

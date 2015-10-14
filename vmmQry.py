@@ -1,25 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-/***************************************************************************
- vmmQry
-                                 A QGIS plugin
- Bevraag de database van VMM
-                              -------------------
-        begin                : 2015-10-07
-        git sha              : $Format:%H$
-        copyright            : (C) 2015 by VMM
-        email                : kaywarrie@gmail.com
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 from vmmQry_dialog import vmmQryDialog
@@ -45,7 +24,7 @@ class vmmQry:
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'vmmQry_{}.qm'.format(locale))
+            '{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -158,7 +137,7 @@ class vmmQry:
             parent=self.iface.mainWindow())
 
     def runSettingsDlg(self):
-        ' show the dialog'
+        ' show the settings dialog'
         if self.vmmQryDlg.isVisible():
            self.vmmQryDlg.showNormal()
            self.vmmQryDlg.activateWindow()
@@ -171,7 +150,7 @@ class vmmQry:
             pass
 
     def runVmmQryDlg(self):
-        ' show the dialog'
+        ' show the base dialog'
         if self.vmmQryDlg.isVisible():
            self.vmmQryDlg.showNormal()
            self.vmmQryDlg.activateWindow()

@@ -1,5 +1,5 @@
 #/***************************************************************************
-# inspireNL
+# Spatial-Subset-Query-Tool 
 #
 # Datasets van de het Nederlandse Dataportaal Nationaal Georegister bevragen  
 #							 -------------------
@@ -19,14 +19,14 @@
 
 # Add iso code for any locales you want to support here (space separated)
 # default is no locales
-LOCALES = nl
+LOCALES = en
 
 # translation
 SOURCES = \
 	__init__.py \
 	vmmQry_dialog.py  vmmQry.py settingsDlg.py
 
-PLUGINNAME = vmmQry
+PLUGINNAME = Spatial-Subset-Query-Tool 
 
 PY_FILES = \
 	__init__.py vmmQry.py vmmQry_dialog.py \
@@ -50,8 +50,8 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 	pyrcc4 -o $*_rc.py  $<
 
 %.py : %.ui
-    #in linux: pyuic4 -o $@ $<
-	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
+	pyuic4 -o $@ $< 
+# 	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
 
 deploy: compile transcompile
 	# The deploy  target only works on unix like operating system where

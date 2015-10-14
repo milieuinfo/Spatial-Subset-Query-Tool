@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>574</width>
     <height>300</height>
    </rect>
   </property>
@@ -35,7 +35,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Gemeente:</string>
+        <string>Selecteer gegevens in:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

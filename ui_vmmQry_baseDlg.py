@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_vmmQry_baseDlg.ui'
 #
-# Created: Wed Oct 14 16:24:41 2015
-#      by: PyQt4 UI code generator 4.10.2
+# Created: Wed Oct 14 19:44:05 2015
+#      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_vmmQryDlg(object):
     def setupUi(self, vmmQryDlg):
         vmmQryDlg.setObjectName(_fromUtf8("vmmQryDlg"))
-        vmmQryDlg.resize(400, 300)
+        vmmQryDlg.resize(574, 300)
         vmmQryDlg.setMinimumSize(QtCore.QSize(300, 250))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/vmmQry/images/Sql-icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -81,7 +81,7 @@ class Ui_vmmQryDlg(object):
 
     def retranslateUi(self, vmmQryDlg):
         vmmQryDlg.setWindowTitle(_translate("vmmQryDlg", "Spatial Subset Query Tool", None))
-        self.label.setText(_translate("vmmQryDlg", "Gemeente:", None))
+        self.label.setText(_translate("vmmQryDlg", "Selecteer gegevens in:", None))
         self.lyrList.setSortingEnabled(True)
         self.typeQryBox.setTitle(_translate("vmmQryDlg", "Type Van Selectie", None))
         self.bboxSelBtn.setText(_translate("vmmQryDlg", "Rechthoek (sneller)", None))

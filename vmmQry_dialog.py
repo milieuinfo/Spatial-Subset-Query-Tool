@@ -20,7 +20,7 @@ class vmmQryDialog(QtGui.QDialog):
         locale = QtCore.QSettings().value('locale/userLocale', "nl")
         if not locale: locale == 'nl'
         else: locale = locale[0:2]
-        localePath = os.path.join(os.path.dirname(__file__), 'i18n', 'geopunt4qgis_{}.qm'.format(locale))
+        localePath = os.path.join(os.path.dirname(__file__), 'i18n', '{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QtCore.QTranslator()
             self.translator.load(localePath)
@@ -55,7 +55,8 @@ class vmmQryDialog(QtGui.QDialog):
                 self.pg = pgHelper.pgHelper(
                   database=self.s.database , user=self.s.dbuser , passw=self.s.dbpassw, host=self.s.dbhost)
             except:
-                self.bar.pushMessage( "Error",  sys.exc_info()[0], level=QgsMessageBar.CRITICAL )
+                self.bar.pushMessage( "Error", QtCore.QCoreApplication.translate('vmmQry', 
+                     "Kan niet verbinden met database, is deze correct ingesteld?"), level=QgsMessageBar.CRITICAL )
                 return
             gemeenten = self.pg.listField( self.s.polyLayer , self.s.polyLayerName, self.s.schema)
             lagen = self.pg.listGeoLayers(self.s.schema)
@@ -74,10 +75,10 @@ class vmmQryDialog(QtGui.QDialog):
            sql = ""
            if self.ui.bboxSelBtn.isChecked() and gemeente <> '':
                sql= self.pg.spatialWhereClause( targetGeom, self.s.polyLayerGeom , self.s.polyLayer,
-                         self.s.polyLayerName +" = '"+ gemeente +"'", bboxOnly=True, schema= self.s.schema )
+                    "\"{0}\" = '{1}'".format(self.s.polyLayerName , gemeente ), bboxOnly=True, schema= self.s.schema )
            elif self.ui.borderSelBtn.isChecked() and gemeente <> '':
                sql= self.pg.spatialWhereClause( targetGeom, self.s.polyLayerGeom , self.s.polyLayer,
-                         self.s.polyLayerName + " = '"+ gemeente +"'", bboxOnly=False, schema= self.s.schema )
+                    "\"{0}\" = '{1}'".format(self.s.polyLayerName , gemeente ), bboxOnly=False, schema= self.s.schema )
 
            self.pg.loadPostGISLayer(layer, targetGeom, sql, schema= self.s.schema )
 

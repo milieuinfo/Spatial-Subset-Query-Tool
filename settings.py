@@ -8,7 +8,7 @@ class settings:
         self.timeout =  int( self.s.value("vmm/timeout" ,15))
         self._getProxySettings()
         #database settings
-        self.dbhost = self.s.value("vmm/dbhost", "Localhost")
+        self.dbhost = self.s.value("vmm/dbhost", "localhost")
         self.dbport = self.s.value("vmm/dbport", "5432")
         self.database = self.s.value("vmm/database", "geodatabase")
         self.dbuser = self.s.value("vmm/dbuser", "username")
