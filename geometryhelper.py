@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-import os
-
+from PyQt4.QtCore import *
 from qgis.core import *
 from PyQt4.QtGui import QFileDialog, QColor
 from qgis.gui import QgsVertexMarker
-
+import os
 
 class geometryHelper:
     def __init__(self , iface ):
@@ -12,36 +11,35 @@ class geometryHelper:
         self.canvas = iface.mapCanvas()
         self.adreslayerid = ''
     
-    @staticmethod
-    def getGetMapCrs(iface):
+    def getGetMapCrs(self):
         new24 = QGis.QGIS_VERSION_INT >= 20400
-        return ( iface.mapCanvas().mapSettings().destinationCrs() if new24
-                 else  iface.mapCanvas().mapRenderer().destinationCrs() )
+        return ( self.iface.mapCanvas().mapSettings().destinationCrs() if new24
+                 else  self.iface.mapCanvas().mapRenderer().destinationCrs() )
         
     def prjPtToMapCrs( self, xy , fromCRS=4326 ):
         point = QgsPoint( xy[0], xy[1] )
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
-        toCrs = self.getGetMapCrs(self.iface)
+        toCrs = self.getGetMapCrs()
         xform = QgsCoordinateTransform( fromCrs, toCrs )
         return   xform.transform( point )
     
     def prjPtFromMapCrs( self, xy , toCRS=31370 ):
         point = QgsPoint( xy[0], xy[1] )
         toCrs = QgsCoordinateReferenceSystem(toCRS)
-        fromCrs = self.getGetMapCrs(self.iface)
+        fromCrs = self.getGetMapCrs()
         xform = QgsCoordinateTransform( fromCrs, toCrs )
         return   xform.transform( point )
 
     def prjLineFromMapCrs(self, lineString, toCRS=4326 ):
-        fromCrs = self.getGetMapCrs(self.iface)
+        fromCrs = self.getGetMapCrs()
         toCrs = QgsCoordinateReferenceSystem(toCRS)
         xform = QgsCoordinateTransform(fromCrs, toCrs)
-        wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
+        wgsLine = [xform.transform( xy ) for xy in lineString.asPolyline()]
         return QgsGeometry.fromPolyline( wgsLine )
 
     def prjLineToMapCrs(self, lineString, fromCRS=4326 ):
         fromCrs = QgsCoordinateReferenceSystem(fromCRS)
-        toCrs = self.getGetMapCrs(self.iface)
+        toCrs = self.getGetMapCrs()
         xform = QgsCoordinateTransform(fromCrs, toCrs)
         if isinstance(lineString, QgsGeometry):
             wgsLine = [ xform.transform( xy ) for xy in  lineString.asPolyline()]
@@ -52,7 +50,7 @@ class geometryHelper:
     def zoomtoRec(self, xyMin, xyMax , crs=None):
         """zoom to rectangle from 2 points with given crs, default= mapCRS"""
         if crs is None:
-            crs = self.getGetMapCrs(self.iface)
+            crs = self.getGetMapCrs()
             
         maxpoint = QgsPoint(xyMax[0], xyMax[1])
         minpoint = QgsPoint(xyMin[0], xyMin[1])
@@ -73,7 +71,7 @@ class geometryHelper:
         if not bounds or len(bounds) != 4:
             return
         if crs is None:
-            crs = self.getGetMapCrs(self.iface)
+            crs = self.getGetMapCrs()
             
         maxpoint = QgsPoint( bounds[0], bounds[1])
         minpoint = QgsPoint( bounds[2], bounds[3])
@@ -89,34 +87,6 @@ class geometryHelper:
         # Refresh the map
         self.iface.mapCanvas().refresh()
       
-    def _saveToFile( self, sender, startFolder=None ):
-        'save to file'
-        #"Shape Files (*.shp);;Geojson File (*.geojson);;GML ( *.gml);;Comma separated value File (excel) (*.csv);;MapInfo TAB (*.TAB);;Any File (*.*)"
-        filter = "ESRI Shape Files (*.shp);;SpatiaLite (*.sqlite);;Any File (*.*)" #show only formats with update capabilty
-        Fdlg = QFileDialog()
-        Fdlg.setFileMode(QFileDialog.AnyFile)
-        fName = QFileDialog.getSaveFileName(sender, "open file", filter=filter, directory=startFolder)
-        if fName:
-          ext = os.path.splitext( fName )[1]
-          if "SHP" in ext.upper():
-            flType = "ESRI Shapefile"
-          elif "SQLITE" in ext.upper():
-            flType = "SQLite" 
-          elif "GEOJSON" in ext.upper():  #no update possible -> hidden
-            flType = "GeoJSON"
-          elif "GML" in ext.upper():
-            flType = "GML"
-          elif 'TAB' in ext.upper():
-            flType = 'MapInfo File'
-          elif 'KML' in ext.upper():
-            flType = 'KML'
-          else:
-            fName = fName + ".shp"
-            flType = "ESRI Shapefile"
-          return (fName , flType )
-        else:
-            return None
-      
     def addPointGraphic(self, xy, color="#FFFF00", size=1, pen=10, markerType=QgsVertexMarker.ICON_BOX ):
         "create a point Graphic at location xy and return it"
         x, y = list( xy )[:2]
@@ -127,6 +97,40 @@ class geometryHelper:
         m.setIconType(markerType) 
         m.setPenWidth(pen)
         return m
+
+    def PolygonsFromJson(self, geojson, projection=4326 ):
+        geoType= geojson['type']
+        Polygons = []
+        
+        if geoType == "Polygon":
+           rings = geojson['coordinates']
+           mPolygon = [ rings ]
+        if geoType == "MultiPolygon":
+           mPolygon = geojson['coordinates']
+        else:
+          raise Exception("Not a Polygon")
+           
+        for rings in mPolygon:
+            prjPolygon = []
+            for ring in rings:
+              prjRing = self.prjLineToMapCrs( ring, projection )
+              prjPolygon.append( prjRing.asPolygon() )
+            
+            gPolygon = QgsGeometry.fromPolygon( prjPolygon )
+            Polygons.append( gPolygon )
+        
+        return Polygons
+
+    def PolylineFromJson(self, geojson, projection=4326 ):
+        geoType= geojson['type']
+
+        if geoType == "LineString":
+           line = geojson['coordinates']
+        else:
+          raise Exception("Not a line")
+
+        prjline = self.prjLineToMapCrs( line, projection )
+        print QgsGeometry.fromLine( prjline )
 
     @staticmethod
     def getBoundsOfPointArray( pointArray, delta=100):

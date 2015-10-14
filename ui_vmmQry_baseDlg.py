@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_vmmQry_baseDlg.ui'
 #
-# Created: Wed Oct 14 19:44:05 2015
+# Created: Wed Oct 14 20:29:09 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -70,7 +70,7 @@ class Ui_vmmQryDlg(object):
         self.verticalLayout.addWidget(self.addLayerBtn)
         self.button_box = QtGui.QDialogButtonBox(vmmQryDlg)
         self.button_box.setOrientation(QtCore.Qt.Horizontal)
-        self.button_box.setStandardButtons(QtGui.QDialogButtonBox.Cancel)
+        self.button_box.setStandardButtons(QtGui.QDialogButtonBox.Close)
         self.button_box.setObjectName(_fromUtf8("button_box"))
         self.verticalLayout.addWidget(self.button_box)
 
