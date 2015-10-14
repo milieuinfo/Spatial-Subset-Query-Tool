@@ -1,0 +1,29 @@
+[general]
+name=Spatial Subset Query tool
+qgisMinimumVersion=2.8
+description=Make a spatial query that selects a subset from a dataset based on the intersection with a polygon from an other preselected dataset in the same database. Bevraag een postgis database door polygonen lagen te selecteren waarbinnen de subbet van de gegevens moet vallen. Dit is een tool ontwikkelt voor VMM.
+version=1.0
+author=Kay Warrie
+email=kaywarrie@gmail.com
+
+about=A tool developed for the Flemish Environment Agency (Vlaamse Milieu Maatschappij VMM, https://www.vmm.be/). Needs to be configured before it can be used.
+
+tracker=https://github.com/warrieka
+repository=https://github.com/warrieka
+# End of mandatory metadata
+
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=sql, postgis, databank, database
+
+homepage=https://www.vmm.be/
+category=Database
+icon=images/Sql-icon.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
