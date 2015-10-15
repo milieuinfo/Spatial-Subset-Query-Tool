@@ -13,7 +13,7 @@ repository=https://github.com/milieuinfo/Spatial-Subset-Query-Tool
 # End of mandatory metadata
 
 # Uncomment the following line and add your changelog:
-# changelog=
+changelog=improved translation and settings
 
 # Tags are comma separated with spaces allowed
 tags=sql, postgis, databank, database

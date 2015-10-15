@@ -27,15 +27,30 @@ class pgHelper:
         self.cur.execute(sql)
         return [n[0] for n in self.cur.fetchall()]
 
+    def listSchemas(self):
+        sql = "select schema_name from information_schema.schemata"
+        self.cur.execute(sql)
+        return [n[0] for n in self.cur.fetchall() 
+                if n[0] not in ["pg_toast","pg_temp_1","pg_toast_temp_1","pg_catalog","information_schema"] ]
+
     def getGeomName(self, table, schema='public'):
         sql= """SELECT DISTINCT column_name
             FROM  information_schema.columns
-            WHERE table_schema = '{1}' and table_name = '{0}'
-            and udt_name = 'geometry'""".format(table, schema)
+            WHERE table_schema = '{1}' AND table_name = '{0}'
+            AND udt_name = 'geometry'""".format(table, schema)
         self.cur.execute(sql)
         result = self.cur.fetchone()
         if result:
             return  result[0]
+
+    def listTableNames(self, table, schema='public'):
+        sql= """SELECT column_name
+                FROM information_schema.columns
+                WHERE table_schema = '{1}'
+                  AND table_name = '{0}'""".format(table, schema)
+        self.cur.execute(sql)
+        return  [n[0] for n in self.cur.fetchall()]
+
 
     def spatialWhereClause(self, targetGeom, qryGeom, qryTable, where="1=1", bboxOnly=False, schema='public'):
         if not bboxOnly:

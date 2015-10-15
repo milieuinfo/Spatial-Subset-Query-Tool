@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
-import sys
-import os
-
+import sys, os
 from qgis.gui import QgsMessageBar
 from PyQt4 import QtGui, QtCore
-
-import pgHelper
+from pgHelper import pgHelper
 from geometryhelper import geometryHelper
 from ui_vmmQry_baseDlg import Ui_vmmQryDlg
 from settings import settings
-
 
 class vmmQryDialog(QtGui.QDialog):
     def __init__(self, iface, parent=None):
@@ -27,32 +23,41 @@ class vmmQryDialog(QtGui.QDialog):
             QtCore.QCoreApplication.installTranslator(self.translator)
 
         self.iface = iface
+                
         self._initGui()
+        #setup a message bar
+        self.bar = QgsMessageBar()
+        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
+        self.ui.verticalLayout.addWidget(self.bar)
+        #events
+        self.ui.addLayerBtn.clicked.connect(self.addLayerClick)
 
     def _initGui(self):
         self.ui = Ui_vmmQryDlg()
         self.ui.setupUi(self)
 
-        self.firstShow = True
+        self.setup()
         self.gh = geometryHelper(self.iface)
-        self.pg = None
-        self.s = settings()
-
+        
         #setup a message bar
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
-
-        #events
-        self.ui.addLayerBtn.clicked.connect(self.addLayerClick)
+        
+    def setup(self):
+        self.firstShow = True
+        self.pg = None
+        self.s = settings()
 
     #overwrite
     def show(self):
         QtGui.QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
+            self.ui.gemeenteCbx.clear()
+            self.ui.lyrList.clear()
             try:
-                self.pg = pgHelper.pgHelper(
+                self.pg = pgHelper(
                   database=self.s.database , user=self.s.dbuser , passw=self.s.dbpassw, host=self.s.dbhost)
             except:
                 self.bar.pushMessage( "Error", QtCore.QCoreApplication.translate('vmmQry', 

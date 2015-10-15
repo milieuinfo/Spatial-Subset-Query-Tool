@@ -2,7 +2,7 @@
 import os
 
 from PyQt4 import QtGui, QtCore
-
+from pgHelper import pgHelper
 from settings import settings
 from ui_settings import Ui_settingsDlg
 
@@ -32,33 +32,90 @@ class settingsDlg(QtGui.QDialog):
         self.ui.setupUi(self)
         
         self.s = settings()
-
-        self.ui.timeOutNum.setValue( self.s.timeout )
-        self.ui.dbHostEdit.setText( self.s.dbhost )
-        self.ui.dbNameEdit.setText( self.s.database )
-        self.ui.dbPortEdit.setText( self.s.dbport )
-        self.ui.dbUserEdit.setText( self.s.dbuser )
-        self.ui.dbPasswordEdit.setText( self.s.dbpassw )
-
-        self.ui.dbSchemaEdit.setText(self.s.schema)
-        self.ui.polygonLayerEdit.setText(self.s.polyLayer)
-        self.ui.nameColEdit.setText(self.s.polyLayerName)
-        self.ui.geomColEdit.setText(self.s.polyLayerGeom)
+        self.pg = None
         
+        self.ui.connectionCbx.addItems( [""] + self.s.connections.keys() )
+        self.initDBsettings()
+        
+        self.ui.connectionCbx.currentIndexChanged.connect(self.connectionChanged)
+        self.ui.dbSchemaCbx.currentIndexChanged.connect(self.schemaChanged)
+        self.ui.polygonLayerCbx.currentIndexChanged.connect(self.polygonLayerChanged)
         self.accepted.connect(self.commit)
+  
+    def initDBsettings(self):
+        cons = self.s.connections.keys() 
+        if self.s.conName in cons:
+          try:
+            self.ui.connectionCbx.setCurrentIndex(cons.index(self.s.conName) +1)
+            self.pg = pgHelper(self.s.dbhost, self.s.dbport, self.s.database, self.s.dbuser, self.s.dbpassw)
+          except:
+            return
+          
+          schemas = self.pg.listSchemas()
+          if self.s.schema in schemas: 
+             self.ui.dbSchemaCbx.addItems( [""] + schemas )
+             self.ui.dbSchemaCbx.setCurrentIndex( schemas.index(self.s.schema) + 1)
+          
+             geoLayers = self.pg.listGeoLayers(self.s.schema)
+             if self.s.polyLayer in geoLayers: 
+                self.ui.polygonLayerCbx.addItems( [""] + geoLayers )
+                self.ui.polygonLayerCbx.setCurrentIndex(geoLayers.index(self.s.polyLayer) + 1)
+                
+                colNames = self.pg.listTableNames(self.s.polyLayer, self.s.schema)
+                if self.s.polyLayerName in colNames: 
+                   self.ui.nameColCbx.addItems( [""] + colNames )
+                   self.ui.nameColCbx.setCurrentIndex(colNames.index(self.s.polyLayerName) + 1)    
+                   self.ui.geomColEdit.setText( self.s.polyLayerGeom )
+          
+    def connectionChanged(self):
+        conName = self.ui.connectionCbx.currentText()
+        self.ui.dbSchemaCbx.clear()
+        
+        if conName <> "":
+          con = self.s.connections[conName]
+          self.pg = pgHelper( con["host"], con["port"], con["database"], con["username"], con["password"] )
+          schemas = self.pg.listSchemas()
+          self.ui.dbSchemaCbx.addItems( [""] + schemas )
+        else:
+          self.pg = None
+          
+    def schemaChanged(self):
+        if not self.pg: return
+        
+        schema = self.ui.dbSchemaCbx.currentText()
+        self.ui.polygonLayerCbx.clear()
+        
+        if schema <> "":
+           self.ui.polygonLayerCbx.addItems([""] + self.pg.listGeoLayers(schema) )
+        
+    def polygonLayerChanged(self):
+        if not self.pg: return
+      
+        schema = self.ui.dbSchemaCbx.currentText()
+        polygonLayer = self.ui.polygonLayerCbx.currentText()
+        
+        self.ui.nameColCbx.clear()
+        self.ui.geomColEdit.setText("")
+        
+        if polygonLayer <> "":
+           colNames = self.pg.listTableNames(polygonLayer, schema)
+           self.ui.nameColCbx.addItems(colNames) 
+           geomName = self.pg.getGeomName(polygonLayer, schema) 
+           if geomName: self.ui.geomColEdit.setText(geomName)
 
     def commit(self):
-        self.s.timeout = self.ui.timeOutNum.value()
+        if not self.pg: return
+          
+        self.s.conName = self.ui.connectionCbx.currentText()
+        self.s.dbhost = self.pg.host
+        self.s.database = self.pg.database
+        self.s.dbport = self.pg.port
+        self.s.dbuser = self.pg.user
+        self.s.dbpassw = self.pg.passw
 
-        self.s.dbhost = self.ui.dbHostEdit.text()
-        self.s.database =  self.ui.dbNameEdit.text()
-        self.s.dbport = self.ui.dbPortEdit.text()
-        self.s.dbuser = self.ui.dbUserEdit.text()
-        self.s.dbpassw = self.ui.dbPasswordEdit.text()
-
-        self.s.schema =  self.ui.dbSchemaEdit.text()
-        self.s.polyLayer = self.ui.polygonLayerEdit.text()
-        self.s.polyLayerName = self.ui.nameColEdit.text()
+        self.s.schema =  self.ui.dbSchemaCbx.currentText()
+        self.s.polyLayer = self.ui.polygonLayerCbx.currentText()
+        self.s.polyLayerName = self.ui.nameColCbx.currentText()
         self.s.polyLayerGeom = self.ui.geomColEdit.text()
 
         self.s.saveSettings()

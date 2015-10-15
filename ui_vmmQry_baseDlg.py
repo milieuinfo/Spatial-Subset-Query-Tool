@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_vmmQry_baseDlg.ui'
 #
-# Created: Wed Oct 14 20:29:09 2015
+# Created: Thu Oct 15 21:49:13 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -85,7 +85,7 @@ class Ui_vmmQryDlg(object):
         self.lyrList.setSortingEnabled(True)
         self.typeQryBox.setTitle(_translate("vmmQryDlg", "Type Van Selectie", None))
         self.bboxSelBtn.setText(_translate("vmmQryDlg", "Rechthoek (sneller)", None))
-        self.borderSelBtn.setText(_translate("vmmQryDlg", "Afsnijden langs grens", None))
+        self.borderSelBtn.setText(_translate("vmmQryDlg", "Intersectie met geometrie", None))
         self.addLayerBtn.setText(_translate("vmmQryDlg", "Selecteerde lagen Toevoegen", None))
 
 import resources_rc

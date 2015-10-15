@@ -8,85 +8,50 @@
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="36"/>
-        <source>Timeout (seconden):</source>
-        <translation>Timeout (seconds):</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="59"/>
-        <source>Database Host:</source>
-        <translation>Database Host:</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="69"/>
-        <source>Database Naam:</source>
-        <translation>Database Name:</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="79"/>
-        <source>Database Port:</source>
-        <translation>Database Port:</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="86"/>
-        <source>0000; </source>
-        <translation>0000;</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="93"/>
+        <location filename="ui_settings.ui" line="53"/>
         <source>Database Schema:</source>
         <translation>Database Schema:</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="116"/>
-        <source>Gebruiker:</source>
-        <translation>User:</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="126"/>
-        <source>Password:</source>
-        <translation>Password:</translation>
-    </message>
-    <message>
-        <location filename="ui_settings.ui" line="147"/>
+        <location filename="ui_settings.ui" line="63"/>
         <source>Polygoon tabel:</source>
         <translation>Polygon table:</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="157"/>
+        <location filename="ui_settings.ui" line="73"/>
         <source>Kolom met namen:</source>
         <translation>Column with names:</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="167"/>
+        <location filename="ui_settings.ui" line="83"/>
         <source>Kolom met geometrien:</source>
         <translation>Column with geometries:</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="180"/>
-        <source>&lt;font color=&quot;red&quot;&gt;Herstarten om toe te passen&lt;/font&gt;</source>
-        <translation>&lt;font color=&quot;red&quot;&gt;Restart to apply&lt;/font&gt;</translation>
+        <location filename="ui_settings.ui" line="36"/>
+        <source>Kies database connectie:</source>
+        <translation>Choose a database connection:</translation>
     </message>
 </context>
 <context>
     <name>vmmQry</name>
     <message>
-        <location filename="vmmQry.py" line="120"/>
+        <location filename="vmmQry.py" line="119"/>
         <source>&amp;Spatial Subset Query tool</source>
         <translation>&amp;Spatial Subset Query tool</translation>
     </message>
     <message>
-        <location filename="vmmQry.py" line="128"/>
+        <location filename="vmmQry.py" line="127"/>
         <source>Query Subset op intersectie</source>
         <translation>Query Subset on intersection</translation>
     </message>
     <message>
-        <location filename="vmmQry.py" line="133"/>
+        <location filename="vmmQry.py" line="132"/>
         <source>Instellingen</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="vmmQry_dialog.py" line="58"/>
+        <location filename="vmmQry_dialog.py" line="63"/>
         <source>Kan niet verbinden met database, is deze correct ingesteld?</source>
         <translation>Cannot connect to databese, is it set up correctly?</translation>
     </message>
@@ -109,11 +74,6 @@
         <translation>Bounding Box (faster) </translation>
     </message>
     <message>
-        <location filename="ui_vmmQry_baseDlg.ui" line="83"/>
-        <source>Afsnijden langs grens</source>
-        <translation>Within Polygon</translation>
-    </message>
-    <message>
         <location filename="ui_vmmQry_baseDlg.ui" line="93"/>
         <source>Selecteerde lagen Toevoegen</source>
         <translation>Add Selected Layers </translation>
@@ -121,7 +81,12 @@
     <message>
         <location filename="ui_vmmQry_baseDlg.ui" line="38"/>
         <source>Selecteer gegevens in:</source>
-        <translation>Selectfeatures in:</translation>
+        <translation>Select features that intersect with:</translation>
+    </message>
+    <message>
+        <location filename="ui_vmmQry_baseDlg.ui" line="83"/>
+        <source>Intersectie met geometrie</source>
+        <translation>Intersection with geometry</translation>
     </message>
 </context>
 </TS>

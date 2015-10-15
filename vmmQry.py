@@ -9,7 +9,7 @@ import os.path
 class vmmQry:
     def __init__(self, iface):
         """Constructor.
-
+        
         :param iface: An interface instance that will be passed to this class
             which provides the hook by which you can manipulate the QGIS
             application at run time.
@@ -32,7 +32,7 @@ class vmmQry:
 
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
-
+        
         # Create the dialog (after translation) and keep reference
         self.vmmQryDlg = vmmQryDialog(self.iface, self.iface.mainWindow() )
         self.settingsDlg = settingsDlg(self.iface, self.iface.mainWindow())
@@ -57,7 +57,6 @@ class vmmQry:
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('vmmQry', message)
-
 
     def add_action( self, icon_path,  text, callback, enabled_flag=True,  add_to_menu=True, add_to_toolbar=True, status_tip=None, parent=None):
         """Add a toolbar icon to the toolbar.
@@ -147,7 +146,7 @@ class vmmQry:
         result = self.settingsDlg.exec_()
         # See if OK was pressed
         if result:
-            pass
+           self.vmmQryDlg.setup()
 
     def runVmmQryDlg(self):
         ' show the base dialog'

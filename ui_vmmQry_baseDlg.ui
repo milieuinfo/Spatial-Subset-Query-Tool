@@ -80,7 +80,7 @@
       <item>
        <widget class="QRadioButton" name="borderSelBtn">
         <property name="text">
-         <string>Afsnijden langs grens</string>
+         <string>Intersectie met geometrie</string>
         </property>
        </widget>
       </item>
