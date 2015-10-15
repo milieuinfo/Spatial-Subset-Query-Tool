@@ -5,17 +5,14 @@ class settings:
     def __init__(self):
         self.s = QSettings()
         
-        #http settings
-        self.timeout =  int( self.s.value("vmm/timeout" ,15))
-        self._getProxySettings()
         #database settings
         self.conName = self.s.value("vmm/conname", "")
         self.dbhost = self.s.value("vmm/dbhost", "")
-        self.dbport = self.s.value("vmm/dbport", "")
+        self.dbport = self.s.value("vmm/dbport", "5432")
         self.database = self.s.value("vmm/database", "")
         self.dbuser = self.s.value("vmm/dbuser", "")
         self.dbpassw = self.s.value("vmm/dbpassw", r'')
-        #layer with polygons
+        #layer 
         self.schema = self.s.value("vmm/schema", r'')
         self.polyLayer =  self.s.value("vmm/polyLayer", r'')
         self.polyLayerGeom = self.s.value("vmm/polyLayerGeom", r'')
@@ -51,8 +48,6 @@ class settings:
         self.s.endGroup()
 
     def saveSettings(self ):
-        self.s.setValue("vmm/timeout", self.timeout)
-
         #database settings
         self.s.setValue("vmm/conname", self.conName)
         self.s.setValue("vmm/dbhost", self.dbhost)
@@ -61,7 +56,7 @@ class settings:
         self.s.setValue("vmm/dbuser", self.dbuser)
         self.s.setValue("vmm/dbpassw", self.dbpassw)
 
-        #layer with polygons
+        #layer 
         self.s.setValue("vmm/schema", self.schema)
         self.s.setValue("vmm/polyLayer", self.polyLayer)
         self.s.setValue("vmm/polyLayerGeom", self.polyLayerGeom)

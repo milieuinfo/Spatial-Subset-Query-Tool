@@ -4,11 +4,14 @@ from qgis.core import *
 class pgHelper:
     def __init__(self, host="localhost", port="5432", database=None, user=None, passw=None ):
         self.host =host
-        self.port = port
+        self.port = str(port)
         self.database = database
         self.user = user
         self.passw = passw
-        self.con = psycopg2.connect(database=database, user=user, password=passw, host=host, port=port)
+        try:
+            self.con = psycopg2.connect(database=database, user=user, password=passw, host=host, port=port)
+        except TypeError:
+            self.con = psycopg2.connect(database=database, user=user, password=passw, host=host)
         self.cur = self.con.cursor()
 
     def __del__(self):
