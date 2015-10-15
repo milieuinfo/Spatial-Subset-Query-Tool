@@ -17,9 +17,9 @@ class vmmQryDialog(QtGui.QDialog):
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
 
         # initialize locale
-        locale = QtCore.QSettings().value('locale/userLocale', "en")
-        if not locale: locale == 'en'
-        else: locale = locale[0:2]
+        locale = QtCore.QSettings().value("locale/userLocale", "en")[0:2] 
+        if not locale in ['en','nl'] : locale = 'en'
+
         localePath = os.path.join(os.path.dirname(__file__), 'i18n', '{}.qm'.format(locale))
         if os.path.exists(localePath):
             self.translator = QtCore.QTranslator()

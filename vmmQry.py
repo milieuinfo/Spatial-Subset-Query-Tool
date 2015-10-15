@@ -20,9 +20,9 @@ class vmmQry:
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
-        locale = QSettings().value('locale/userLocale', 'en')
-        if not locale: locale == 'en'
-        else: locale = locale[0:2]
+        locale = QSettings().value("locale/userLocale", "en")[0:2] 
+        if not locale in ['en','nl'] : locale = 'en'
+
         locale_path = os.path.join(
             self.plugin_dir, 'i18n', '{}.qm'.format(locale))
 
