@@ -1,9 +1,4 @@
 
-help/build/*
-.directory
-.idea/
-*.kdev4
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -57,7 +52,14 @@ coverage.xml
 *.log
 
 # Sphinx documentation
-docs/_build/
+help/build/*
 
-# PyBuilder
-target/
+#IDE files
+.directory
+.idea/
+*.kdev4
+
+#pyqt files
+ui_*.py
+*_rc.py
+i18n/*.qm
