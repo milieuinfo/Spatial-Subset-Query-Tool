@@ -50,8 +50,8 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 	pyrcc4 -o $*_rc.py  $<
 
 %.py : %.ui
-	pyuic4 -o $@ $< 
-# 	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
+	#pyuic4 -o $@ $<
+	python C:\OSGeo4W64\apps\Python27\lib\site-packages\PyQt4\uic\pyuic.py -o $@ $<
 
 deploy: compile transcompile
 	# The deploy  target only works on unix like operating system where

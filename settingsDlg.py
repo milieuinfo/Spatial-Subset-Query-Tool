@@ -23,7 +23,8 @@ class settingsDlg(QtGui.QDialog):
             self.translator = QtCore.QTranslator()
             self.translator.load(localePath)
             if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
-    
+
+        self.pg = None
         self._initGui()
 
     def _initGui(self):
@@ -31,17 +32,20 @@ class settingsDlg(QtGui.QDialog):
         self.ui = Ui_settingsDlg()
         self.ui.setupUi(self)
         
-        self.s = settings()
-        self.pg = None
-        
-        self.ui.connectionCbx.addItems( [""] + self.s.connections.keys() )
-        self.initDBsettings()
+        self.setup()
         
         self.ui.connectionCbx.currentIndexChanged.connect(self.connectionChanged)
         self.ui.dbSchemaCbx.currentIndexChanged.connect(self.schemaChanged)
         self.ui.polygonLayerCbx.currentIndexChanged.connect(self.polygonLayerChanged)
         self.accepted.connect(self.commit)
-  
+
+    def setup(self):
+        self.s = settings()
+        self.ui.connectionCbx.clear()
+        self.ui.connectionCbx.addItems( [""] + self.s.connections.keys() )
+        self.initDBsettings()
+
+
     def initDBsettings(self):
         cons = self.s.connections.keys() 
         if self.s.conName in cons:
@@ -52,16 +56,19 @@ class settingsDlg(QtGui.QDialog):
             return
           
           schemas = self.pg.listSchemas()
-          if self.s.schema in schemas: 
+          self.ui.dbSchemaCbx.clear()
+          if self.s.schema in schemas:
              self.ui.dbSchemaCbx.addItems( [""] + schemas )
              self.ui.dbSchemaCbx.setCurrentIndex( schemas.index(self.s.schema) + 1)
           
              geoLayers = self.pg.listGeoLayers(self.s.schema)
-             if self.s.polyLayer in geoLayers: 
+             self.ui.polygonLayerCbx.clear()
+             if self.s.polyLayer in geoLayers:
                 self.ui.polygonLayerCbx.addItems( [""] + geoLayers )
                 self.ui.polygonLayerCbx.setCurrentIndex(geoLayers.index(self.s.polyLayer) + 1)
                 
                 colNames = self.pg.listTableNames(self.s.polyLayer, self.s.schema)
+                self.ui.nameColCbx.clear()
                 if self.s.polyLayerName in colNames: 
                    self.ui.nameColCbx.addItems( [""] + colNames )
                    self.ui.nameColCbx.setCurrentIndex(colNames.index(self.s.polyLayerName) + 1)    
@@ -75,6 +82,7 @@ class settingsDlg(QtGui.QDialog):
           con = self.s.connections[conName]
           self.pg = pgHelper( con["host"], con["port"], con["database"], con["username"], con["password"] )
           schemas = self.pg.listSchemas()
+          self.ui.dbSchemaCbx.clear()
           self.ui.dbSchemaCbx.addItems( [""] + schemas )
         else:
           self.pg = None
@@ -86,6 +94,7 @@ class settingsDlg(QtGui.QDialog):
         self.ui.polygonLayerCbx.clear()
         
         if schema <> "":
+           self.ui.polygonLayerCbx.clear()
            self.ui.polygonLayerCbx.addItems([""] + self.pg.listGeoLayers(schema) )
         
     def polygonLayerChanged(self):
@@ -99,6 +108,7 @@ class settingsDlg(QtGui.QDialog):
         
         if polygonLayer <> "":
            colNames = self.pg.listTableNames(polygonLayer, schema)
+           self.ui.nameColCbx.clear()
            self.ui.nameColCbx.addItems(colNames) 
            geomName = self.pg.getGeomName(polygonLayer, schema) 
            if geomName: self.ui.geomColEdit.setText(geomName)

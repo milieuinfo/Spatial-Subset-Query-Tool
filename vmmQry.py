@@ -141,6 +141,8 @@ class vmmQry:
            self.vmmQryDlg.showNormal()
            self.vmmQryDlg.activateWindow()
            return
+
+        self.settingsDlg.setup()
         self.settingsDlg.show()
         # Run the dialog event loop
         result = self.settingsDlg.exec_()

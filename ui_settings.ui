@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>452</width>
-    <height>225</height>
+    <width>437</width>
+    <height>224</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,7 +60,7 @@
       <item row="7" column="0">
        <widget class="QLabel" name="polygonTblLbl">
         <property name="text">
-         <string>Polygoon tabel:</string>
+         <string>Tabel met geometrie:</string>
         </property>
        </widget>
       </item>
@@ -80,7 +80,7 @@
       <item row="9" column="0">
        <widget class="QLabel" name="geomColLbl">
         <property name="text">
-         <string>Kolom met geometrien:</string>
+         <string>Kolom met geometrie:</string>
         </property>
        </widget>
       </item>
