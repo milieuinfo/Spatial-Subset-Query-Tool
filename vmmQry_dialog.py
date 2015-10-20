@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import sys, os
+import sys, os, webbrowser
 from qgis.gui import QgsMessageBar
 from PyQt4 import QtGui, QtCore
 from pgHelper import pgHelper
@@ -23,14 +23,10 @@ class vmmQryDialog(QtGui.QDialog):
             QtCore.QCoreApplication.installTranslator(self.translator)
 
         self.iface = iface
+        self.helpUrl = "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README.md" if locale <> 'nl' \
+            else "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README_NL.md"
                 
         self._initGui()
-        #setup a message bar
-        self.bar = QgsMessageBar()
-        self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
-        self.ui.verticalLayout.addWidget(self.bar)
-        #events
-        self.ui.addLayerBtn.clicked.connect(self.addLayerClick)
 
     def _initGui(self):
         self.ui = Ui_vmmQryDlg()
@@ -43,6 +39,10 @@ class vmmQryDialog(QtGui.QDialog):
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy( QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed )
         self.ui.verticalLayout.addWidget(self.bar)
+        #events
+        self.ui.addLayerBtn.clicked.connect(self.addLayerClick)
+        self.ui.button_box.helpRequested.connect(self.help)
+
         
     def setup(self):
         self.firstShow = True
@@ -70,6 +70,9 @@ class vmmQryDialog(QtGui.QDialog):
             self.ui.gemeenteCbx.setCurrentIndex(0)
             self.ui.lyrList.addItems(lagen)
             self.firstShow = False
+
+    def help(self):
+        webbrowser.open_new_tab(self.helpUrl)
 
     def addLayerClick(self):
         gemeente = self.ui.gemeenteCbx.currentText()

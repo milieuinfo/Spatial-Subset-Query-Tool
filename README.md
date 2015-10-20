@@ -11,6 +11,8 @@ This is confusing for the user and requires more resources from the dataabase an
 Configuration:
 ------------
 
+A python Plugin for QGIS.
+
 Before you can use this tool you need to have to add one or more connections to a postgis databases to QGIS.
 You can find infomation about this here: http://docs.qgis.org/2.8/en/docs/user_manual/working_with_vector/supported_data.html#postgis-layers 
 and even more here: http://docs.qgis.org/2.8/en/docs/training_manual/database_concepts/index.html

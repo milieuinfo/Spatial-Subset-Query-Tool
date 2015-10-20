@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
-
+import os, webbrowser
 from PyQt4 import QtGui, QtCore
 from pgHelper import pgHelper
 from settings import settings
@@ -8,12 +7,12 @@ from ui_settings import Ui_settingsDlg
 
 
 class settingsDlg(QtGui.QDialog):
+    # noinspection PyArgumentList
     def __init__(self, iface,  parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.setWindowFlags( self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint )
         #self.setWindowFlags( self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
-        self.iface = iface
-    
+
         # initialize locale
         locale = QtCore.QSettings().value("locale/userLocale", "en")[0:2] 
         if not locale in ['en','nl'] : locale = 'en'
@@ -22,8 +21,11 @@ class settingsDlg(QtGui.QDialog):
         if os.path.exists(localePath):
             self.translator = QtCore.QTranslator()
             self.translator.load(localePath)
-            if QtCore.qVersion() > '4.3.3': QtCore.QCoreApplication.installTranslator(self.translator)
+            QtCore.QCoreApplication.installTranslator(self.translator)
 
+        self.iface = iface
+        self.helpUrl = "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README.md" if locale <> 'nl' \
+            else "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README_NL.md"
         self.pg = None
         self._initGui()
 
@@ -37,6 +39,7 @@ class settingsDlg(QtGui.QDialog):
         self.ui.connectionCbx.currentIndexChanged.connect(self.connectionChanged)
         self.ui.dbSchemaCbx.currentIndexChanged.connect(self.schemaChanged)
         self.ui.polygonLayerCbx.currentIndexChanged.connect(self.polygonLayerChanged)
+        self.ui.buttonBox.helpRequested.connect(self.help)
         self.accepted.connect(self.commit)
 
     def setup(self):
@@ -44,7 +47,6 @@ class settingsDlg(QtGui.QDialog):
         self.ui.connectionCbx.clear()
         self.ui.connectionCbx.addItems( [""] + self.s.connections.keys() )
         self.initDBsettings()
-
 
     def initDBsettings(self):
         cons = self.s.connections.keys() 
@@ -73,7 +75,10 @@ class settingsDlg(QtGui.QDialog):
                    self.ui.nameColCbx.addItems( [""] + colNames )
                    self.ui.nameColCbx.setCurrentIndex(colNames.index(self.s.polyLayerName) + 1)    
                    self.ui.geomColEdit.setText( self.s.polyLayerGeom )
-          
+
+    def help(self):
+        webbrowser.open_new_tab(self.helpUrl)
+
     def connectionChanged(self):
         conName = self.ui.connectionCbx.currentText()
         self.ui.dbSchemaCbx.clear()

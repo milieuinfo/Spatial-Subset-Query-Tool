@@ -13,16 +13,16 @@ repository=https://github.com/milieuinfo/Spatial-Subset-Query-Tool
 # End of mandatory metadata
 
 # Uncomment the following line and add your changelog:
-changelog=improved translation and settings
+changelog=improved documentation and help
 
 # Tags are comma separated with spaces allowed
-tags=sql, postgis, databank, database
+tags=sql, postgis, databank, database, query
 
 homepage=http://www.milieuinfo.be/
 category=Database
 icon=images/vmm-icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
