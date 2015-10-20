@@ -2,6 +2,7 @@ Spatial Subset Query tool
 ====
 
 A python plugin for QGIS.
+
 Make a spatial query that selects a subset from a dataset based on the intersection with a dataset from an other preselected dataset in the same database.
 This can be needed if you have a larger database. This way you can only load the region of interest you need and you avoid loading to much data. 
 This is confusing for the user and requires more resources from the dataabase and client. 
