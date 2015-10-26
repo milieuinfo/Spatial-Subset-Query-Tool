@@ -6,8 +6,6 @@ version=1.3
 author=Kay Warrie
 email=kaywarrie@gmail.com
 
-about=A tool developed for the Flemish Environment Agency (Vlaamse Milieu Maatschappij VMM). The Database needs be configured before it can be used. Dit is een tool ontwikkeld voor Vlaamse Milieu Maatschappij (VMM). De databank instellingen moeten worden geconfigureerd voordat hij gebruik kan worden.
-
 tracker=https://github.com/milieuinfo/Spatial-Subset-Query-Tool/issues
 repository=https://github.com/milieuinfo/Spatial-Subset-Query-Tool
 # End of mandatory metadata

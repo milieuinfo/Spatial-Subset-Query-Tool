@@ -73,7 +73,7 @@ class vmmQryDialog(QtGui.QDialog):
                 return
             subsets = self.pg.listField( self.s.polyLayer , self.s.polyLayerName, self.s.schema)
             lagen = self.pg.listGeoLayers(self.s.schema)
-            self.ui.gemeenteCbx.addItems([str(n) for n in subsets])
+            self.ui.gemeenteCbx.addItems([unicode(n) for n in subsets])
             self.ui.gemeenteCbx.insertItem(0,'')
             self.ui.gemeenteCbx.setCurrentIndex(0)
             self.ui.lyrList.addItems(lagen)
