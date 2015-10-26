@@ -1,12 +1,12 @@
 [general]
 name=Spatial Subset Query tool
 qgisMinimumVersion=2.8
-description=EN: Make a spatial query on postgis database that selects a subset from a dataset based on the intersection with a geometry from an other preselected dataset in the same database. NL: Maak ruimtelijke query die een subset van een dataset op selecteerd op basis van de intersectie met een gepreselecteerde laag overeenkomstig bij eenb bepaald waarde.
-version=1.2
+description=EN: Make a spatial query on postgis database that selects a subset from a dataset based on the intersection with a geometry from an other preselected dataset in the same database. NL: Maak ruimtelijke query die een subset van een dataset op selecteert op basis van de intersectie met een gepreselecteerde laag overeenkomstig bij een bepaalde waarde.
+version=1.3
 author=Kay Warrie
 email=kaywarrie@gmail.com
 
-about=A tool developed for the Flemish Environment Agency (Vlaamse Milieu Maatschappij VMM). The Database needs be configured before it can be used. Dit is een tool ontwikkelt voor Vlaamse Milieu Maatschappij (VMM). De databank instellingen moeten worden geconfigureerd voordat hij gebruik kan worden.
+about=A tool developed for the Flemish Environment Agency (Vlaamse Milieu Maatschappij VMM). The Database needs be configured before it can be used. Dit is een tool ontwikkeld voor Vlaamse Milieu Maatschappij (VMM). De databank instellingen moeten worden geconfigureerd voordat hij gebruik kan worden.
 
 tracker=https://github.com/milieuinfo/Spatial-Subset-Query-Tool/issues
 repository=https://github.com/milieuinfo/Spatial-Subset-Query-Tool
