@@ -13,24 +13,24 @@
         <translation>Database Schema:</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="63"/>
-        <source>Polygoon tabel:</source>
-        <translation>Polygon table:</translation>
-    </message>
-    <message>
         <location filename="ui_settings.ui" line="73"/>
         <source>Kolom met namen:</source>
         <translation>Column with names:</translation>
     </message>
     <message>
-        <location filename="ui_settings.ui" line="83"/>
-        <source>Kolom met geometrien:</source>
-        <translation>Column with geometries:</translation>
-    </message>
-    <message>
         <location filename="ui_settings.ui" line="36"/>
         <source>Kies database connectie:</source>
         <translation>Choose a database connection:</translation>
+    </message>
+    <message>
+        <location filename="ui_settings.ui" line="63"/>
+        <source>Tabel met geometrie:</source>
+        <translation>Table with geometries:</translation>
+    </message>
+    <message>
+        <location filename="ui_settings.ui" line="83"/>
+        <source>Kolom met geometrie:</source>
+        <translation>Column with geometries:</translation>
     </message>
 </context>
 <context>
@@ -51,7 +51,7 @@
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="vmmQry_dialog.py" line="63"/>
+        <location filename="vmmQry_dialog.py" line="71"/>
         <source>Kan niet verbinden met database, is deze correct ingesteld?</source>
         <translation>Cannot connect to databese, is it set up correctly?</translation>
     </message>

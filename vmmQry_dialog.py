@@ -54,6 +54,14 @@ class vmmQryDialog(QtGui.QDialog):
         QtGui.QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
+            if self.s.database == "": return
+            if self.s.dbuser == "": return
+            if self.s.dbhost == "": return
+            if self.s.dbpassw == "": return
+            if self.s.polyLayer == "": return
+            if self.s.polyLayerName == "": return
+            if self.s.schema == "": return
+          
             self.ui.gemeenteCbx.clear()
             self.ui.lyrList.clear()
             try:
@@ -61,11 +69,11 @@ class vmmQryDialog(QtGui.QDialog):
                   database=self.s.database , user=self.s.dbuser , passw=self.s.dbpassw, host=self.s.dbhost)
             except:
                 self.bar.pushMessage( "Error", QtCore.QCoreApplication.translate('vmmQry', 
-                     "Kan niet verbinden met database, is deze correct ingesteld?"), level=QgsMessageBar.CRITICAL )
+                      "Kan niet verbinden met database, is deze correct ingesteld?"), level=QgsMessageBar.CRITICAL )
                 return
-            gemeenten = self.pg.listField( self.s.polyLayer , self.s.polyLayerName, self.s.schema)
+            subsets = self.pg.listField( self.s.polyLayer , self.s.polyLayerName, self.s.schema)
             lagen = self.pg.listGeoLayers(self.s.schema)
-            self.ui.gemeenteCbx.addItems(gemeenten)
+            self.ui.gemeenteCbx.addItems([str(n) for n in subsets])
             self.ui.gemeenteCbx.insertItem(0,'')
             self.ui.gemeenteCbx.setCurrentIndex(0)
             self.ui.lyrList.addItems(lagen)
