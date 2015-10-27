@@ -46,11 +46,13 @@ class pgHelper:
         if result:
             return  result[0]
 
-    def listTableNames(self, table, schema='public'):
+    def listTableNames(self, table, schema='public', textFieldOnly=True):
         sql= """SELECT column_name
                 FROM information_schema.columns
                 WHERE table_schema = '{1}'
-                  AND table_name = '{0}'""".format(table, schema)
+                  AND table_name = '{0}'
+                  """.format(table, schema)
+        if textFieldOnly: sql += " AND ( udt_name LIKE '%char%' OR udt_name = 'text')"
         self.cur.execute(sql)
         return  [n[0] for n in self.cur.fetchall()]
 

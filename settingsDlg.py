@@ -24,8 +24,8 @@ class settingsDlg(QtGui.QDialog):
             QtCore.QCoreApplication.installTranslator(self.translator)
 
         self.iface = iface
-        self.helpUrl = "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README.md" if locale <> 'nl' \
-            else "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README_NL.md"
+        self.helpUrl = "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README_NL.md" if locale == 'nl' \
+            else "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README.md"
         self.pg = None
         self._initGui()
 

@@ -23,8 +23,8 @@ class vmmQryDialog(QtGui.QDialog):
             QtCore.QCoreApplication.installTranslator(self.translator)
 
         self.iface = iface
-        self.helpUrl = "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README.md" if locale <> 'nl' \
-            else "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README_NL.md"
+        self.helpUrl = "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README_NL.md" if locale == 'nl' \
+            else "https://github.com/milieuinfo/Spatial-Subset-Query-Tool/blob/master/README.md"
                 
         self._initGui()
 
@@ -43,7 +43,6 @@ class vmmQryDialog(QtGui.QDialog):
         self.ui.addLayerBtn.clicked.connect(self.addLayerClick)
         self.ui.button_box.helpRequested.connect(self.help)
 
-        
     def setup(self):
         self.firstShow = True
         self.pg = None
@@ -54,14 +53,19 @@ class vmmQryDialog(QtGui.QDialog):
         QtGui.QDialog.show(self)
         self.setWindowModality(0)
         if self.firstShow:
-            if self.s.database == "": return
-            if self.s.dbuser == "": return
-            if self.s.dbhost == "": return
-            if self.s.dbpassw == "": return
-            if self.s.polyLayer == "": return
-            if self.s.polyLayerName == "": return
-            if self.s.schema == "": return
-          
+            if not self.s.database : return
+            if not self.s.dbuser : return
+            if not self.s.dbhost : return
+            if not self.s.polyLayer : return
+            if not self.s.polyLayerName : return
+            if not self.s.schema : return
+
+            if not self.s.dbpassw :
+               passw, ok = QtGui.QInputDialog.getText( self, "Password",
+                            "Enter pasword for user {}".format(self.s.dbuser), QtGui.QLineEdit.Password )
+               if ok: self.s.dbpassw = passw
+               else: return
+
             self.ui.gemeenteCbx.clear()
             self.ui.lyrList.clear()
             try:

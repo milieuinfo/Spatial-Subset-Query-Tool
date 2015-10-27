@@ -6,7 +6,7 @@ Een python plugin voor QGIS.
 Maak ruimtelijke query die een subset van een dataset selecteert op basis van de intersectie met een andere laag bij een bepaald waarde.
 Dit kan nodig zijn als u een grotere database heeft.
 Op deze manier kunt u alleen de laag laden binnen het gebied dat voor u van belang is en voorkomt u dat te veel gegevens laad.
-Dat is verwarrend voor de gebruiker en vereist meer resources van de database ne client.
+Dat is verwarrend voor de gebruiker en vereist meer resources van de database en client.
 
 **Opmerking:** Je moet de tool eerst configureren voor je hem kan gebruiken.
 

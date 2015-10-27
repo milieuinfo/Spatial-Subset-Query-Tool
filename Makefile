@@ -29,7 +29,7 @@ SOURCES = \
 PLUGINNAME = Spatial-Subset-Query-Tool 
 
 PY_FILES = \
-	__init__.py vmmQry.py vmmQry_dialog.py \
+	__init__.py vmmQry.py vmmQryDlg.py \
 	settings.py geometryhelper.py pgHelper.py settingsDlg.py
 
 UI_FILES = ui_vmmQry_baseDlg.py ui_settings.py

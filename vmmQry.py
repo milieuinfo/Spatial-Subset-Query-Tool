@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
-from vmmQry_dialog import vmmQryDialog
+from vmmQryDlg import vmmQryDialog
 from settingsDlg import settingsDlg
 import os.path
 
