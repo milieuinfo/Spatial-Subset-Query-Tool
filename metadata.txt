@@ -1,8 +1,8 @@
 [general]
-name=Spatial Subset Query tool
+name=Spatial_Subset_Query_tool
 qgisMinimumVersion=2.8
-description=EN: Make a spatial query on postgis database that selects a subset from a dataset based on the intersection with a geometry from an other preselected dataset in the same database. NL: Maak ruimtelijke query die een subset van een dataset op selecteert op basis van de intersectie met een gepreselecteerde laag overeenkomstig bij een bepaalde waarde.
-version=1.3
+description=Maak ruimtelijke query die een subset van een dataset op selecteert op basis van de intersectie met een gepreselecteerde laag overeenkomstig bij een bepaalde waarde.
+version=1.4
 author=Kay Warrie
 email=kaywarrie@gmail.com
 

@@ -26,7 +26,7 @@ SOURCES = \
 	__init__.py \
 	vmmQry_dialog.py  vmmQry.py settingsDlg.py
 
-PLUGINNAME = Spatial-Subset-Query-Tool 
+PLUGINNAME = Spatial_Subset_Query_tool
 
 PY_FILES = \
 	__init__.py vmmQry.py vmmQryDlg.py \
@@ -75,7 +75,7 @@ dclean:
 derase:
 	rm -Rf $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 
-zip: deploy dclean
+zip: deploy
 	# The zip target deploys the plugin and creates a zip file with the deployed
 	# content. You can then upload the zip file on http://plugins.qgis.org
 	rm -f build/$(PLUGINNAME).zip
